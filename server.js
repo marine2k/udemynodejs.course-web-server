@@ -2,6 +2,7 @@ const express = require('express'); //node-server
 const hbs = require('hbs'); //handlebars
 const fs = require('fs');
 
+const port = process.env.PORT || 3000; // || = default value if process.env.PORT does not exist
 var app = express();
 
 hbs.registerPartials(__dirname + '/views/partials'); //directory: where HBS files are located
@@ -19,9 +20,9 @@ app.use((req, res, next) => { //next: tell express when middleware is done -> if
   next();
 }); //app.use = register middleware for Express
 
-app.use((req, res, next) => {
-  res.render('maintenance.hbs');
-});
+// app.use((req, res, next) => {
+//   res.render('maintenance.hbs');
+// });
 
 app.use(express.static(__dirname + '/public'));
 
@@ -60,6 +61,6 @@ app.get('/bad', (request, response) => {
     });
 });
 
-app.listen(3000, () => { //function: executed once server is up and running
-  console.log('Server is up on port 3000');
+app.listen(port, () => { //function: executed once server is up and running
+  console.log(`Server is up on port ${port}`);
 }); //host binding --> localhost:3000
